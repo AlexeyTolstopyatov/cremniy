@@ -161,3 +161,16 @@ QMenu::item:selected {
     background: #333333;
 }
 
+
+
+
+QPushButton[state="green"] {
+border: 1px solid #2c7c32;
+}
+QPushButton::hover[state="green"] {
+background-color: #163318; border: 1px solid #2c7c32;
+}
+QPushButton::pressed[state="green"] {
+background-color: #163318; border: 2px solid #2c7c32; font-weight: bold;
+}
+
