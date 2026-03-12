@@ -8,7 +8,7 @@
   [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
   [![Community](https://img.shields.io/badge/Community-Telegram-blue?logo=telegram&style=flat-square)](https://t.me/cremniy_com)
 
-  English • [Russian](README_ru.md)
+  English • [Русский](README_ru.md)
   
 </div>
 
@@ -20,6 +20,7 @@
 - ~Disassembler~
 - ~Debugger~
 - ~Memory Map~
+
 
 
 
