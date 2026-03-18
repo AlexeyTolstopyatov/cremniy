@@ -67,7 +67,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           # Resize icon to 256x256 for AppImage compatibility
-          convert src/resources/icons/icon.png -resize 256x256 cremniy-256.png
+          convert src/resources/icons/icon.png -resize 256x256 cremniy.png
           
           export QML_SOURCES_PATHS=${{ github.workspace }}/src
           export QMAKE=$Qt6_DIR/bin/qmake
@@ -75,7 +75,7 @@ jobs:
             --appdir AppDir \
             --executable build/cremniy \
             --desktop-file cremniy.desktop \
-            --icon-file cremniy-256.png \
+            --icon-file cremniy.png \
             --plugin qt \
             --output appimage
           mv Cremniy-*.AppImage ${{ matrix.artifact_name }}.AppImage || mv cremniy-*.AppImage ${{ matrix.artifact_name }}.AppImage
