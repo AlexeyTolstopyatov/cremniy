@@ -7,6 +7,9 @@
 #include <QThread>
 #include <QHash>
 
+#include <QGuiApplication>
+#include <QClipboard>
+
 class QPlainTextEdit;
 class QLabel;
 class QProgressBar;
@@ -18,6 +21,7 @@ class QSplitter;
 class QTimer;
 class DisasmTextHighlighter;
 class QListWidget;
+
 
 class DisassemblerTab : public ToolTab
 {
