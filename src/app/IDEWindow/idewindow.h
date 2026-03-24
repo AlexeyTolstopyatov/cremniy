@@ -8,6 +8,7 @@
 #include <qmenubar.h>
 #include <qsplitter.h>
 #include <qstatusbar.h>
+#include "widgets/terminal/terminalwidget.h"
 
 class IDEWindow : public QMainWindow
 {
@@ -33,6 +34,47 @@ private slots:
     */
     void on_Tree_ContextMenu(const QPoint &pos);
 
+
+private:
+
+    /**
+     * @brief Сохранить текущий путь проекта в истории
+    */
+    void SaveProjectInCache(const QString project_path);
+
+    // - - Main Widgets - -
+    QMenuBar* m_menuBar;
+    QStatusBar* m_statusBar;
+    QWidget* m_mainWidget;
+    QHBoxLayout* m_mainLayout;
+    QSplitter* m_verticalSplitter;  // splitter (вверх вниз)
+    QSplitter* m_mainSplitter; 
+
+    // - - General Widgets - -
+    FilesTabWidget* m_filesTabWidget;
+    FileTreeView* m_filesTreeView;
+
+    // - - Terminal Widget - -
+    TerminalWidget* m_terminal;
+
+
+public slots:
+
+    /**
+     * @brief Создать новый проект (QMenuBar->File->NewProject)
+    */
+    void on_NewProject();
+
+    /**
+     * @brief Открыть другой проект (QMenuBar->File->OpenProject)
+    */
+    void on_OpenProject();
+
+    /**
+     * @brief Сохранить файл (QMenuBar->File->SaveFile)
+    */
+    void on_SaveFile();
+
     /**
      * @brief Закрыть проект (QMenuBar->File->CloseProject)
     */
@@ -43,65 +85,16 @@ private slots:
      *
      * Открывает окно Settings
     */
-    void on_Open_Settings();
+    void on_openSettings();
 
     /**
-     * @brief Нажатие на Reverse Calculator (QMenuBar->Tools->ReverseCalculator)
-     *
-     * Открывает калькулятор для перевода чисел в разные систмы счислений
+     * @brief Отображение терминала
     */
-    void on_Open_ReverseCalculator();
+    void on_Toggle_Terminal(bool checked);
 
-private:
 
-    /**
-     * @brief Сохранить текущий путь проекта в истории
-    */
-    void SaveProjectInCache(const QString project_path);
-
-    // - - Menu Bars - -
-    QMenu* m_fileMenu;
-    QMenu* m_editMenu;
-    QMenu* m_viewMenu;
-    QMenu* m_toolsMenu;
-    QMenu* m_referencesMenu;
-    QMenu* m_gitMenu;
-
-    // - - File Menu - -
-    QAction* m_file_newProject;
-    QAction* m_file_openProject;
-    QAction* m_file_saveFile;
-    QAction* m_file_closeProject;
-
-    // - - Edit Menu - -
-    QAction* m_edit_settings;
-
-    // - - View Menu - -
-    QAction* m_view_wordWrap;
-
-    // - - Tools Menu - -
-
-    QAction* m_tools_reverseCalculator;
-
-    // - - References - -
-    QAction* m_references_asciiChars;
-    QAction* m_references_keybScancodes;
-
-    // - - Git Menu - -
-    QAction* m_git_commit;
-    QAction* m_git_commitAndPush;
-    QAction* m_git_setBranch;
-
-    // - - Main Widgets - -
-    QMenuBar* m_menuBar;
-    QStatusBar* m_statusBar;
-    QWidget* m_mainWidget;
-    QHBoxLayout* m_mainLayout;
-    QSplitter* m_mainSplitter;
-
-    // - - General Widgets - -
-    FilesTabWidget* m_filesTabWidget;
-    FileTreeView* m_filesTreeView;
+signals:
+    void saveFileSignal();
 
 };
 #endif // IDEWINDOW_H

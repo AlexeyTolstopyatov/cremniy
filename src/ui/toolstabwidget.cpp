@@ -2,15 +2,12 @@
 #include <qboxlayout.h>
 #include <qfileinfo.h>
 
-#include "tooltabwidget.h"
+#include "toolstabwidget.h"
 #include "core/ToolTabFactory.h"
 #include "core/ToolTab.h"
 #include "core/FileDataBuffer.h"
-#include "utils/globalwidgetsmanager.h"
-#include "utils/filemanager.h"
-#include "utils/filecontext.h"
 
-ToolTabWidget::ToolTabWidget(QWidget *parent, QString path)
+ToolsTabWidget::ToolsTabWidget(QWidget *parent, QString path)
     {
 
     // Создаем общий буфер данных для всех вкладок
@@ -22,7 +19,7 @@ ToolTabWidget::ToolTabWidget(QWidget *parent, QString path)
 
     auto& toolFactory = ToolTabFactory::instance();
 
-    qDebug() << "ToolTabWidget constr: for id in avTabs";
+    qDebug() << "ToolsTabWidget constr: for id in avTabs";
     for (const QString& toolID : toolFactory.availableTabs()){
         ToolTab* tab = toolFactory.create(toolID, m_sharedBuffer);
         qDebug() << "availableTab: " << tab->toolName();
@@ -30,9 +27,9 @@ ToolTabWidget::ToolTabWidget(QWidget *parent, QString path)
         tab->setFile(path);
         tab->setProperty("tabDataLoaded", false);
 
-        connect(tab, &ToolTab::refreshDataAllTabsSignal, this, &ToolTabWidget::refreshDataAllTabs);
-        connect(tab, &ToolTab::modifyData, this, &ToolTabWidget::setupStar);
-        connect(tab, &ToolTab::dataEqual, this, &ToolTabWidget::removeStar);
+        connect(tab, &ToolTab::refreshDataAllTabsSignal, this, &ToolsTabWidget::refreshDataAllTabs);
+        connect(tab, &ToolTab::modifyData, this, &ToolsTabWidget::setupStar);
+        connect(tab, &ToolTab::dataEqual, this, &ToolsTabWidget::removeStar);
 
         if (tab) this->addTab(tab, tab->toolIcon(), tab->toolName());
     }
@@ -62,11 +59,11 @@ ToolTabWidget::ToolTabWidget(QWidget *parent, QString path)
     // // - - Connects - -
 
     // // Trigger: Menu Bar: File->SaveFile or CTRL+S - saveTabData
-    connect(GlobalWidgetsManager::instance().get_IDEWindow_menuBar_file_saveFile(),
-            &QAction::triggered, this, &ToolTabWidget::saveCurrentTabData);
+    // connect(GlobalWidgetsManager::instance().get_IDEWindow_menuBar_file_saveFile(),
+            // &QAction::triggered, this, &ToolsTabWidget::saveCurrentTabData);
 }
 
-void ToolTabWidget::refreshDataAllTabs(){
+void ToolsTabWidget::refreshDataAllTabs(){
     for (int tabIndex = 0; tabIndex < this->count(); tabIndex++){
         if (tabIndex != this->currentIndex()){
             ToolTab* tab = dynamic_cast<ToolTab*>(this->widget(tabIndex));
@@ -75,14 +72,14 @@ void ToolTabWidget::refreshDataAllTabs(){
     }
 }
 
-void ToolTabWidget::saveCurrentTabData(){
+void ToolsTabWidget::saveCurrentTabData(){
     ToolTab* tab = dynamic_cast<ToolTab*>(currentWidget());
     if (tab) tab->saveTabData();
 }
 
-void ToolTabWidget::removeStar(){
+void ToolsTabWidget::removeStar(){
 
-    qDebug() << "ToolTabWidget: removeStar()";
+    qDebug() << "ToolsTabWidget: removeStar()";
 
     // remove star at sender
     QObject* obj = sender();
@@ -101,26 +98,26 @@ void ToolTabWidget::removeStar(){
     for (int tabIndex = 0; tabIndex < this->count(); tabIndex++){
         if (tabIndex != this->currentIndex()){
             ToolTab* tab = dynamic_cast<ToolTab*>(this->widget(tabIndex));
-            qDebug() << "ToolTabWidget: removeStar(): " << tab->toolName();
+            qDebug() << "ToolsTabWidget: removeStar(): " << tab->toolName();
             if (!tab->getModifyIndicator()) {
-                qDebug() << "ToolTabWidget: removeStar(): toolCount_WithoutModIndicator++";
+                qDebug() << "ToolsTabWidget: removeStar(): toolCount_WithoutModIndicator++";
                 toolCount_WithoutModIndicator++;
             }
         }
     }
 
-    qDebug() << "ToolTabWidget: removeStar(): " << toolCount_WithoutModIndicator << " : " << this->count();
+    qDebug() << "ToolsTabWidget: removeStar(): " << toolCount_WithoutModIndicator << " : " << this->count();
 
     if (toolCount_WithoutModIndicator == (this->count()-1)) {
         emit removeStarSignal();
-        qDebug() << "ToolTabWidget: removeStar(): removeStarSignal";
+        qDebug() << "ToolsTabWidget: removeStar(): removeStarSignal";
     }
 
 }
 
-void ToolTabWidget::setupStar(){
+void ToolsTabWidget::setupStar(){
 
-    qDebug() << "ToolTabWidget: setupStar()";
+    qDebug() << "ToolsTabWidget: setupStar()";
 
     // setup star on tab
     QObject* obj = sender();

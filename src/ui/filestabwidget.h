@@ -16,6 +16,7 @@ public:
 public slots:
     void removeStar(FileTab* tab);
     void setupStar(FileTab* tab);
+    void saveFileSlot();
 
 };
 

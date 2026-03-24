@@ -50,3 +50,11 @@ void FilesTabWidget::setupStar(FileTab* tab){
         setTabText(index, finfo.fileName() + "*");
     }
 }
+
+void FilesTabWidget::saveFileSlot(){
+    qDebug() << "FilesTabWidget::saveFileSlot()";
+    if (count() > 0){
+        FileTab* currentFileTab = dynamic_cast<FileTab*>(currentWidget());
+        currentFileTab->saveFile();
+    }
+}
