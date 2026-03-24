@@ -5,8 +5,12 @@
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qstackedlayout.h>
+#include <QToolTip>
+#include <QHelpEvent>
+#include <QTextCursor>
 #include "filemanager.h"
 #include "utils.h"
+#include "utils/instructionhelpservice.h"
 
 #include "core/ToolTabFactory.h"
 
@@ -24,6 +28,14 @@ CodeEditorTab::CodeEditorTab(QWidget *parent)
     // - - Create "Code Editor" Page - -
 
     m_codeEditorWidget = new QCodeEditor(this);
+    m_codeEditorWidget->viewport()->setMouseTracking(true);
+    m_codeEditorWidget->viewport()->installEventFilter(this);
+    connect(m_codeEditorWidget, &QPlainTextEdit::cursorPositionChanged, this, [this]() {
+        if (!m_codeEditorWidget || !m_codeEditorWidget->hasFocus())
+            return;
+        const QPoint p = m_codeEditorWidget->cursorRect().bottomRight();
+        showInstructionHelpAt(p, true);
+    });
 
     QTextOption opt = m_codeEditorWidget->document()->defaultTextOption();
     opt.setTabStopDistance(20);
@@ -111,6 +123,42 @@ CodeEditorTab::CodeEditorTab(QWidget *parent)
                 }
             });
 
+}
+
+bool CodeEditorTab::eventFilter(QObject *watched, QEvent *event)
+{
+    if (m_codeEditorWidget && watched == m_codeEditorWidget->viewport() && event) {
+        if (event->type() == QEvent::ToolTip) {
+            auto *helpEvent = static_cast<QHelpEvent *>(event);
+            showInstructionHelpAt(helpEvent->pos(), false);
+            return true;
+        }
+    }
+    return ToolTab::eventFilter(watched, event);
+}
+
+void CodeEditorTab::showInstructionHelpAt(const QPoint &pos, bool forceByCursor)
+{
+    if (!m_codeEditorWidget)
+        return;
+
+    QTextCursor c = forceByCursor ? m_codeEditorWidget->textCursor() : m_codeEditorWidget->cursorForPosition(pos);
+    c.select(QTextCursor::WordUnderCursor);
+    const QString token = c.selectedText().trimmed();
+    const QString line = c.block().text();
+
+    QString tip = InstructionHelpService::instance().tooltipForToken(token, line);
+    if (tip.isEmpty())
+        tip = InstructionHelpService::instance().tooltipForLine(line);
+
+    if (tip.isEmpty()) {
+        QToolTip::hideText();
+        return;
+    }
+
+    const QPoint globalPos = m_codeEditorWidget->viewport()->mapToGlobal(
+        forceByCursor ? m_codeEditorWidget->cursorRect().bottomRight() : pos);
+    QToolTip::showText(globalPos, tip, m_codeEditorWidget->viewport());
 }
 
 // - - override functions - -

@@ -12,6 +12,8 @@ class CodeEditorTab : public ToolTab
     Q_OBJECT
 
 private:
+    bool eventFilter(QObject *watched, QEvent *event) override;
+    void showInstructionHelpAt(const QPoint &pos, bool forceByCursor = false);
 
     /**
      * @brief Виджет редактора кода
