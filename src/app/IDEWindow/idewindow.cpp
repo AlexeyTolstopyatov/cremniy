@@ -7,10 +7,9 @@
 #include <qjsonobject.h>
 #include <QStandardPaths>
 #include <QApplication>
-#include "globalwidgetsmanager.h"
 #include "app/WelcomeWindow/welcomeform.h"
 #include "dialogs/settingsdialog.h"
-#include "dialogs/reversecalculatordialog.h"
+#include "ui/MenuBar/menubarbuilder.h"
 
 IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
     : QMainWindow(parent)
@@ -20,50 +19,11 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
     this->setWindowState(Qt::WindowMaximized);
     this->setWindowTitle("Cremniy");
 
+    // - - Menu Bar - -
+    MenuBarBuilder* menuBarBuilder = new MenuBarBuilder(menuBar(), this);
+
     // Save Project In History
     SaveProjectInCache(ProjectPath);
-
-    // - - Main Menu - -
-    m_menuBar = menuBar();
-    m_fileMenu = m_menuBar->addMenu("File");
-    m_editMenu = m_menuBar->addMenu("Edit");
-    m_viewMenu = m_menuBar->addMenu("View");
-    m_toolsMenu = m_menuBar->addMenu("Tools");
-    m_referencesMenu = m_menuBar->addMenu("References");
-    m_gitMenu = m_menuBar->addMenu("Git");
-
-    // - - File Menu - -
-    m_file_openProject = new QAction("New Project", this);
-    m_file_newProject = new QAction("Open Project", this);
-    m_file_saveFile = new QAction("Save File", this);
-    GlobalWidgetsManager::instance().set_IDEWindow_menuBar_file_saveFile(m_file_saveFile);
-    m_file_closeProject = new QAction("Close Project", this);
-
-    // - - View Menu - -
-    m_view_wordWrap = new QAction("Word Wrap", this);
-    m_view_wordWrap->setCheckable(true);
-    m_view_wordWrap->setChecked(true);
-    m_view_toggleTerminal = new QAction("Show Terminal", this);
-    m_view_toggleTerminal->setCheckable(true);
-    m_view_toggleTerminal->setChecked(true);
-    m_view_toggleTerminal->setShortcut(QKeySequence("Ctrl+`")); 
-    GlobalWidgetsManager::instance().set_IDEWindow_menuBar_view_wordWrap(m_view_wordWrap);
-
-    // - - Tools Menu - -
-    m_tools_reverseCalculator = new QAction("Reverse Calculator", this);
-
-    // - - References Menu - -
-    m_references_asciiChars = new QAction("ASCII characters", this);
-    m_references_keybScancodes = new QAction("Keyboard Scancodes", this);
-
-    // - - Edit Menu - -
-    m_edit_settings = new QAction("Settings", this);
-
-    // - - Git Menu - -
-    m_git_commit = new QAction("Commit", this);
-    m_git_commitAndPush = new QAction("Commit And Push", this);
-    m_git_setBranch = new QAction("Set Branch", this);
-
 
     // - - Widgets - -
     m_statusBar = statusBar();
@@ -83,6 +43,7 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
     leftLayout->setContentsMargins(0,0,0,0);
     
     m_filesTabWidget = new FilesTabWidget();
+    m_filesTabWidget->setObjectName("filesTabWidget");
     m_filesTreeView = new FileTreeView();
     leftLayout->addWidget(m_filesTreeView);
 
@@ -99,45 +60,11 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
 
     leftLayout->addWidget(m_filesTreeView);
 
-    // - - Add Actions in Menu Bar - -
-
-    // - File Menu -
-    m_fileMenu->addAction(m_file_openProject);
-    m_fileMenu->addAction(m_file_newProject);
-    m_fileMenu->addSeparator();
-    m_fileMenu->addAction(m_file_saveFile);
-    m_fileMenu->addSeparator();
-    m_fileMenu->addAction(m_file_closeProject);
-
-    // - Edit Menu -
-    m_toolsMenu->addSeparator();
-    m_editMenu->addAction(m_edit_settings);
-
-    // - View Menu -
-    m_viewMenu->addAction(m_view_wordWrap);
-    m_viewMenu->addAction(m_view_toggleTerminal);
-
-    // - Tools Menu -
-    m_toolsMenu->addAction(m_tools_reverseCalculator);
-    m_toolsMenu->addSeparator();
-
-    // - References Menu -
-    m_referencesMenu->addAction(m_references_asciiChars);
-    m_referencesMenu->addAction(m_references_keybScancodes);
-
-    // - Git Menu -
-    m_gitMenu->addAction(m_git_commit);
-    m_gitMenu->addAction(m_git_commitAndPush);
-    m_gitMenu->addSeparator();
-    m_gitMenu->addAction(m_git_setBranch);
-
     // - - Tunning Widgets/Layouts - -
 
     setCentralWidget(m_mainWidget);
 
     m_mainLayout->addWidget(m_verticalSplitter);
-
-    m_filesTabWidget->setObjectName("filesTabWidget");
 
     m_mainSplitter->setSizes({200, 1000});
     m_mainSplitter->setCollapsible(0, false);
@@ -164,7 +91,7 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
     m_filesTreeView->setEditTriggers(QAbstractItemView::EditKeyPressed);
     m_filesTreeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
-    m_file_saveFile->setShortcut(QKeySequence::Save);
+    m_mainLayout->setContentsMargins(0,0,0,0);
 
     while (m_filesTabWidget->count() > 0) {
         m_filesTabWidget->removeTab(0);
@@ -175,38 +102,21 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
 
     // - - Connects - -
 
-    connect(m_file_closeProject, &QAction::triggered, this, &IDEWindow::on_ClosingProject);
+    connect(this, &IDEWindow::saveFileSignal, m_filesTabWidget, &FilesTabWidget::saveFileSlot);
+
     connect(m_filesTabWidget, &QTabWidget::tabCloseRequested,
             this, [=](int index){
                 m_filesTabWidget->removeTab(index);
             });
     connect(m_filesTreeView, &QTreeView::customContextMenuRequested,this, &IDEWindow::on_Tree_ContextMenu);
-    connect(m_edit_settings, &QAction::triggered, this, &IDEWindow::on_Open_Settings);
-    connect(m_tools_reverseCalculator, &QAction::triggered, this, &IDEWindow::on_Open_ReverseCalculator);
     connect(m_filesTreeView, &QTreeView::doubleClicked, this, &IDEWindow::on_treeView_doubleClicked);
-    connect(m_view_toggleTerminal, &QAction::toggled, this, &IDEWindow::on_Toggle_Terminal);
 }
 
 IDEWindow::~IDEWindow()
 {}
 
-void IDEWindow::on_Open_Settings()
-{
-    SettingsDialog dlg(this);
-    dlg.exec();
-}
-
 void IDEWindow::on_Toggle_Terminal(bool checked) {
     m_terminal->setVisible(checked);
-}
-
-void IDEWindow::on_Open_ReverseCalculator()
-{
-    auto *dlg = new ReverseCalculatorDialog(this);
-    dlg->setAttribute(Qt::WA_DeleteOnClose, true);
-    dlg->show();
-    dlg->raise();
-    dlg->activateWindow();
 }
 
 void IDEWindow::SaveProjectInCache(const QString project_path){
@@ -359,3 +269,20 @@ void IDEWindow::on_Tree_ContextMenu(const QPoint &pos)
     menu.exec(m_filesTreeView->viewport()->mapToGlobal(pos));
 }
 
+void IDEWindow::on_NewProject(){
+
+}
+
+void IDEWindow::on_OpenProject(){
+
+}
+
+void IDEWindow::on_SaveFile(){
+    qDebug() << "IDEWindow::on_SaveFile()";
+    emit saveFileSignal();
+}
+
+void IDEWindow::on_openSettings(){
+    SettingsDialog dlg(this);
+    dlg.exec();
+}

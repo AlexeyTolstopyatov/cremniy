@@ -11,17 +11,19 @@ class QSpinBox;
 class QCompleter;
 class QStyleSyntaxHighlighter;
 class QCodeEditor;
+class FileDataBuffer;
 
-class ToolTabWidget : public QTabWidget
+class ToolsTabWidget : public QTabWidget
 {
     Q_OBJECT
 public:
-    ToolTabWidget(QWidget *parent, QString path);
+    ToolsTabWidget(QWidget *parent, QString path);
     int saveToFileCurrentTab(QString path);
     void setDataInTabs(QByteArray &data, int index = -1, int excluded_index = -1);
 
 private:
     void loadStyle(QString path, QString name);
+    FileDataBuffer* m_sharedBuffer = nullptr;
 
 public slots:
     void saveCurrentTabData();
@@ -33,6 +35,7 @@ public slots:
 signals:
     void removeStarSignal();
     void setupStarSignal();
+    void saveFileSignal();
 
 };
 
