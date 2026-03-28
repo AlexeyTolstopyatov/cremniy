@@ -18,6 +18,7 @@ On macOS, use `Cmd` instead of `Ctrl` for standard sequences!
 | Tab | Code Editor: insert 4 spaces |
 | Shift+Tab | Code Editor: decrease indent (up to 4 spaces) |
 | Enter | Code Editor: auto-indent (including `{}`) |
+| Ctrl+` | Terminal: open / close |
 | Ctrl+C | Terminal: copy selection or send interrupt when no selection |
 | Ctrl+A | Terminal: select from last prompt to end |
 | Enter | Terminal: run command |
