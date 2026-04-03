@@ -10,7 +10,7 @@ English • [Русский](ROADMAP_ru.md)
 Create a **unified tool for system programming** that eliminates the need for scattered solutions and simplifies the development process.
 
 ## 📦 Current Version
-[v0.1.2](https://github.com/Cremniy-Project/cremniy/releases/tag/v0.1.2) — basic development environment with:
+[v0.1.3](https://github.com/Cremniy-Project/cremniy/releases/tag/v0.1.3) — basic development environment with:
 - Code editor (full support for low-level languages)
 - HEX editor (view bytes in RAW format)
 - Disassembler (can use `objdump` and `radare2`)
