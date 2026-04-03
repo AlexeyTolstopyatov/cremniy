@@ -29,17 +29,18 @@ Create a **unified tool for system programming** that eliminates the need for sc
 
 - [ ] 🔴 [Implement custom QPlainText for Code Editor](https://github.com/Cremniy-Project/cremniy/issues/56)
 - [ ] 🔴 [Optimize data storage in QHexView](https://github.com/Cremniy-Project/cremniy/issues/57)
-- [ ] 🟡 [Improve Disassembler design](https://github.com/Cremniy-Project/cremniy/issues/55)
 - [ ] 🟡 [Use Breeze icons for files in QTreeView](https://github.com/Cremniy-Project/cremniy/issues/72)
 - [ ] 🟡 [Implement StatusBar](https://github.com/Cremniy-Project/cremniy/issues/73)
 - [ ] 🟡 [Display numbers in different numeral systems on hover](https://github.com/Cremniy-Project/cremniy/issues/28)
 - [ ] 🟡 [Keyboard scancode reference guide](https://github.com/munirov/cremniy/issues/89)
+- [ ] 🟡 [Improve Terminal](https://github.com/munirov/cremniy/issues/100)
 - [ ] 🟡 [Build and run user project](https://github.com/Cremniy-Project/cremniy/issues/6)
 - [ ] 🟢 [Add multilingual support](https://github.com/Cremniy-Project/cremniy/issues/67)
 - [ ] 🟢 [Search string across all project files](https://github.com/Cremniy-Project/cremniy/issues/76)
 - [ ] 🟢 [Pin file tabs (FileTab)](https://github.com/Cremniy-Project/cremniy/issues/75)
 - [ ] 🟢 [Move files between directories in QTreeView](https://github.com/Cremniy-Project/cremniy/issues/77)
 - [ ] 🟢 [Git integration](https://github.com/Cremniy-Project/cremniy/issues/42)
+- [x] 🟡 [Improve Disassembler design](https://github.com/Cremniy-Project/cremniy/issues/55)
 
 ## 🕓 Long-Term Tasks
 
