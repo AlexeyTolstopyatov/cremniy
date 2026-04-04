@@ -10,7 +10,7 @@
 #include "ui/MenuBar/menubarbuilder.h"
 
 IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), m_projectPath(ProjectPath)
 {
 
     // - - Window Settings - -
@@ -31,7 +31,7 @@ IDEWindow::IDEWindow(QString ProjectPath, QWidget *parent)
 
     m_verticalSplitter = new QSplitter(Qt::Vertical, m_mainWidget);
 
-    m_terminal = new TerminalWidget(this);
+    m_terminal = new TerminalWidget(this, ProjectPath);
     m_terminal->setVisible(false);
 
     m_leftSidebar = new QWidget();

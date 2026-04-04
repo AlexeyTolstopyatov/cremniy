@@ -54,6 +54,7 @@ private:
 
     // - - Terminal Widget - -
     TerminalWidget* m_terminal;
+    QString m_projectPath;
 
 
 public slots:
