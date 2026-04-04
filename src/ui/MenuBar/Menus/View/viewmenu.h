@@ -13,6 +13,7 @@ private:
     QAction* m_tabWidth4;
     QAction* m_tabWidth8;
     QAction* m_terminal;
+    QAction* m_fileTree;
 public:
     ViewMenu();
     void setupConnections(IDEWindow* ideWind);

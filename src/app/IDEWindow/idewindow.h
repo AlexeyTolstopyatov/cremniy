@@ -37,11 +37,6 @@ private slots:
 
 private:
 
-    /**
-     * @brief Сохранить текущий путь проекта в истории
-    */
-    void SaveProjectInCache(const QString project_path);
-
     // - - Main Widgets - -
     QMenuBar* m_menuBar;
     QStatusBar* m_statusBar;
@@ -52,6 +47,9 @@ private:
 
     // - - General Widgets - -
     FilesTabWidget* m_filesTabWidget;
+
+    // - - Sidebar Widgets - -
+    QWidget* m_leftSidebar;
     FileTreeView* m_filesTreeView;
 
     // - - Terminal Widget - -
@@ -107,8 +105,14 @@ public slots:
      */
     void on_SetTabWidth(int width);
 
+    /**
+     * @brief Отображение дерева файлов
+    */
+    void on_Toggle_FileTree(bool checked);
+
 signals:
     void saveFileSignal();
+    void CloseProject();
 
 };
 #endif // IDEWINDOW_H

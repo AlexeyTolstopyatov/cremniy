@@ -1,5 +1,4 @@
 #include "codeeditortab.h"
-
 #include "core/ToolTabFactory.h"
 #include "filemanager.h"
 #include "utils.h"

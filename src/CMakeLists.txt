@@ -64,9 +64,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         utils/utils.cpp
         utils/appsettings.h
         utils/appsettings.cpp
+        utils/instructionhelpservice.h
+        utils/instructionhelpservice.cpp
         utils/filecontext.h
         utils/filemanager.h
         utils/filemanager.cpp
+        utils/projectshistorymanager.cpp
+        utils/projectshistorymanager.h
 
         core/ToolTab.h
         core/ToolTabFactory.cpp
@@ -85,6 +89,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ui/filestabwidget.h
         ui/toolstabwidget.cpp
         ui/toolstabwidget.h
+
+        ui/MenuBar/Menus/References/referencewindow.h
+        ui/MenuBar/Menus/References/Windows/AsciiChars/asciicharsref.cpp
+        ui/MenuBar/Menus/References/Windows/AsciiChars/asciicharsref.h
+        ui/MenuBar/Menus/References/referencewindowfactory.h ui/MenuBar/Menus/References/referencewindowfactory.cpp
+
 
 
     )

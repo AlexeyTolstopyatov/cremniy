@@ -41,6 +41,7 @@ TerminalWidget::TerminalWidget(QWidget *parent) : QWidget(parent) {
         "font-family: 'Consolas', 'DejaVu Sans Mono', monospace; font-size: 10pt;"
     );
     layout->addWidget(m_display);
+    setFocusProxy(m_display);
 
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::MergedChannels);
@@ -221,8 +222,8 @@ TerminalWidget::~TerminalWidget() {
         disconnect(m_process, nullptr, this, nullptr);
     }
     
-    if (m_process && m_process->state() == QProcess::Running) {
-        m_process->terminate();
+    if (m_process && m_process->state() != QProcess::NotRunning) {
+        m_process->kill();
         m_process->waitForFinished(500);
     }
 }

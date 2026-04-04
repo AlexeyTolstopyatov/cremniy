@@ -1,5 +1,6 @@
 #include "viewmenu.h"
 #include "ui/MenuBar/menufactory.h"
+#include <QKeySequence>
 
 #include <QActionGroup>
 
@@ -33,13 +34,23 @@ ViewMenu::ViewMenu() : BaseMenu("View") {
 
     m_terminal = new QAction("Show terminal", this);
     m_terminal->setCheckable(true);
-    m_terminal->setChecked(true);
+    m_terminal->setChecked(false);
+    m_terminal->setShortcuts({
+        QKeySequence("Ctrl+`"),
+        QKeySequence("Ctrl+ё"),
+    });
+
+    m_fileTree = new QAction("File Tree", this);
+    m_fileTree->setCheckable(true);
+    m_fileTree->setChecked(true);
+    m_fileTree->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_B));
 
     this->addAction(m_wordWrap);
     this->addAction(m_tabReplace);
     this->addMenu(tabWidthMenu);
     this->addSeparator();
     this->addAction(m_terminal);
+    this->addAction(m_fileTree);
 }
 
 void ViewMenu::setupConnections(IDEWindow* ideWind){
@@ -49,4 +60,5 @@ void ViewMenu::setupConnections(IDEWindow* ideWind){
     connect(m_tabWidth4, &QAction::triggered, ideWind, [ideWind]() { ideWind->on_SetTabWidth(4); });
     connect(m_tabWidth8, &QAction::triggered, ideWind, [ideWind]() { ideWind->on_SetTabWidth(8); });
     connect(m_terminal, &QAction::triggered, ideWind, &IDEWindow::on_Toggle_Terminal);
+    connect(m_fileTree, &QAction::triggered, ideWind, &IDEWindow::on_Toggle_FileTree);
 }
