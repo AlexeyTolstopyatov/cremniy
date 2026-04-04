@@ -19,6 +19,9 @@ Create a **unified tool for system programming** that eliminates the need for sc
 
 ## 🛠 Short-Term Tasks
 
+> [!WARNING]
+> A new code editor widget is currently under development, so changes to the existing version are not being accepted. If you see this message, it means the development is not yet complete.
+
 ### 🐞 Bugs
 
 - [ ] [Incorrect byte display in HEX-Editor on MacOS](https://github.com/Cremniy-Project/cremniy/issues/43)
@@ -32,6 +35,7 @@ Create a **unified tool for system programming** that eliminates the need for sc
 - [ ] 🟡 [Use Breeze icons for files in QTreeView](https://github.com/Cremniy-Project/cremniy/issues/72)
 - [ ] 🟡 [Implement StatusBar](https://github.com/Cremniy-Project/cremniy/issues/73)
 - [ ] 🟡 [Display numbers in different numeral systems on hover](https://github.com/Cremniy-Project/cremniy/issues/28)
+- [ ] 🟡 [Add a data storage unit converter](https://github.com/munirov/cremniy/issues/104)
 - [ ] 🟡 [Keyboard scancode reference guide](https://github.com/munirov/cremniy/issues/89)
 - [ ] 🟡 [Improve Terminal](https://github.com/munirov/cremniy/issues/100)
 - [ ] 🟡 [Build and run user project](https://github.com/Cremniy-Project/cremniy/issues/6)
