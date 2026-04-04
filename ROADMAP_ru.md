@@ -19,18 +19,13 @@
 
 ## 🛠 Ближайшие задачи
 
-> [!WARNING]
-> Сейчас ведётся разработка нового виджета редактора кода, поэтому изменения в текущую версию не принимаются. Если вы видите это сообщение, значит разработка ещё не завершена.
-
 ### 🐞 Баги
 
 - [ ] [Неправильное отображение байтов в HEX-Editor на MacOS](https://github.com/Cremniy-Project/cremniy/issues/43)
-- [ ] [Не правильно работает синтаксис Makefile](https://github.com/Cremniy-Project/cremniy/issues/41)
 - [ ] [Отображение полоски в HEX-Editor на Windows](https://github.com/Cremniy-Project/cremniy/issues/33)
 
 ### ✨ Улучшения и новые задачи
 
-- [ ] 🔴 [Реализация кастомного QPlainText для Code Editor](https://github.com/Cremniy-Project/cremniy/issues/56)
 - [ ] 🔴 [Оптимизировать хранение данных у QHexView](https://github.com/Cremniy-Project/cremniy/issues/57)
 - [ ] 🟡 [Использование иконок Breeze для файлов в QTreeView](https://github.com/Cremniy-Project/cremniy/issues/72)
 - [ ] 🟡 [Реализовать StatusBar](https://github.com/Cremniy-Project/cremniy/issues/73)
@@ -41,10 +36,11 @@
 - [ ] 🟡 [Сборка и запуск проекта пользователя](https://github.com/Cremniy-Project/cremniy/issues/6)
 - [ ] 🟢 [Добавить многоязычность](https://github.com/Cremniy-Project/cremniy/issues/67)
 - [ ] 🟢 [Поиск строки по всем файлам проекта](https://github.com/Cremniy-Project/cremniy/issues/76)
-- [ ] 🟢 [Закрепление вкладки файла (FileTab)](https://github.com/Cremniy-Project/cremniy/issues/75)
 - [ ] 🟢 [Перемещение файлов по директориям в QTreeView](https://github.com/Cremniy-Project/cremniy/issues/77)
 - [ ] 🟢 [Работа с Git](https://github.com/Cremniy-Project/cremniy/issues/42)
+- [x] 🔴 [Реализация кастомного QPlainText для Code Editor](https://github.com/Cremniy-Project/cremniy/issues/56)
 - [x] 🟡 [Улучшение дизайна Disassembler](https://github.com/Cremniy-Project/cremniy/issues/55)
+- [x] 🟢 [Закрепление вкладки файла (FileTab)](https://github.com/Cremniy-Project/cremniy/issues/75)
 
 ## 🕓 Долгосрочные задачи
 
