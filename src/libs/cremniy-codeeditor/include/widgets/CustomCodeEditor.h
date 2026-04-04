@@ -208,6 +208,7 @@ private:
     QString lineCommentPrefix() const;
     QString highlightedSelectionText() const;
     QVector<QTextLayout::FormatRange> highlightFormatsForVisibleLine(qint64 lineNum, const QString& text) const;
+    qreal displayAdvanceForRange(qint64 lineNum, int startColumn, int length) const;
     void applyEditorPalette();
     void ensureLineIndexValid();
     qint64 clampToUtf8Boundary(qint64 bytePos) const;
