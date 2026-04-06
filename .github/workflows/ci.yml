@@ -26,7 +26,7 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.5.3'
-          cache: false
+          cache: true
 
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
@@ -46,4 +46,8 @@ jobs:
 
       - name: Test executable exists (Windows)
         if: runner.os == 'Windows'
-        run: Test-Path build/Release/cremniy.exe
+        shell: pwsh
+        run: |
+          if (!(Test-Path "build/Release/cremniy.exe")) {
+            throw "build/Release/cremniy.exe was not produced"
+          }
