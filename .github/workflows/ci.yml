@@ -47,4 +47,7 @@ jobs:
       - name: Test executable exists (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
-        run: Test-Path build/Release/cremniy.exe
+        run: |
+          if (!(Test-Path "build/Release/cremniy.exe")) {
+            throw "build/Release/cremniy.exe was not produced"
+          }
