@@ -46,8 +46,6 @@ qt_add_executable(${PROJECT_NAME}
     # Utils
     utils/utils.h
     utils/utils.cpp
-    utils/iconprovider.cpp
-    utils/iconprovider.h
 
     # Core
     core/file/filecontext.h
@@ -59,6 +57,8 @@ qt_add_executable(${PROJECT_NAME}
     core/project/projectshistorymanager.h
     core/settings/appsettings.cpp
     core/settings/appsettings.h
+    core/icons/iconprovider.cpp
+    core/icons/iconprovider.h
 
     # UI
     ui/FilesTabWidget/filestabwidget.cpp
