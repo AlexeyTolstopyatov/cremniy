@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.8.2 REQUIRED COMPONENTS Widgets Test)
+find_package(Qt6 6.8.2 REQUIRED COMPONENTS Widgets Test Svg)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -57,6 +57,8 @@ qt_add_executable(${PROJECT_NAME}
     core/project/projectshistorymanager.h
     core/settings/appsettings.cpp
     core/settings/appsettings.h
+    core/icons/iconprovider.cpp
+    core/icons/iconprovider.h
 
     # UI
     ui/FilesTabWidget/filestabwidget.cpp
@@ -81,10 +83,21 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/core/project
     ${CMAKE_CURRENT_SOURCE_DIR}/core/settings
     ${CMAKE_CURRENT_SOURCE_DIR}/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
     ${CMAKE_CURRENT_SOURCE_DIR}/ToolsTabWidget
     ${CMAKE_CURRENT_SOURCE_DIR}/FilesTabWidget
 )
 
+file(GLOB_RECURSE PHOICONS_FILES 
+    "resources/icons/phoicons/*.svg" 
+    "resources/icons/phoicons/*.theme"
+)
+
+qt_add_resources(${PROJECT_NAME} "phoicons_icons"
+    PREFIX "/icons"
+    BASE "resources/icons"
+    FILES ${PHOICONS_FILES}
+)
 
 # - - Libs - -
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/CodeEditor/ ${CMAKE_BINARY_DIR}/libs/CodeEditor/)
@@ -101,7 +114,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Tools/Windows/)
 # - - Menus - -
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ui/MenuBar/Menus/)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets Qt6::Svg)
 
 find_program(WINDEPLOYQT_EXECUTABLE windeployqt)
 
