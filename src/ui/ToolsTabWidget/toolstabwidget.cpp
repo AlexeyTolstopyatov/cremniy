@@ -109,6 +109,10 @@ ToolTab* ToolsTabWidget::createToolTab(const QString& toolId)
     connect(tab, &ToolTab::refreshDataAllTabsSignal, this, &ToolsTabWidget::refreshDataAllTabs);
     connect(tab, &ToolTab::modifyData, this, &ToolsTabWidget::setupStar);
     connect(tab, &ToolTab::dataEqual, this, &ToolsTabWidget::removeStar);
+    connect(tab, &ToolTab::statusBarInfoChanged, this, [this, tab](const QString& info) {
+        if (currentWidget() == tab)
+            emit statusBarInfoChanged(info);
+    });
 
     connect(this, &ToolsTabWidget::setWordWrapSignal, tab, &ToolTab::setWordWrapSlot);
     connect(this, &ToolsTabWidget::setTabReplaceSignal, tab, &ToolTab::setTabReplaceSlot);
