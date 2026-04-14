@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ main, dev ]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build:
     name: Build on ${{ matrix.os }}
@@ -41,16 +38,24 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev libxkbcommon-x11-0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-cursor0
+          sudo apt-get install -y \
+          libgl1-mesa-dev libxkbcommon-x11-0 \
+          libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+          libxcb-render-util0 libxcb-xinerama0 libxcb-cursor0 \
+          libxcb-xkb1 libdbus-1-3
 
       - name: Configure CMake (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: cmake -B build -S src -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 17 2022"
       
-      - name: Configure CMake (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Configure CMake (Linux)
+        if: runner.os == 'Linux'
         run: cmake -B build -S src -DCMAKE_BUILD_TYPE=Release
+        
+      - name: Configure CMake (macOS)
+        if: runner.os == 'macOS'
+        run: cmake -B build -S src -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$Qt6_DIR
 
       - name: Build
         run: cmake --build build --config Release --parallel
