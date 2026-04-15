@@ -2,12 +2,12 @@
 #define REFERENCEWINDOW_H
 
 #include <qwidget.h>
-class ReferenceWindow : public QWidget
+class ReferenceBase : public QWidget
 {
     Q_OBJECT
 public:
 
-    virtual QString RefWinName() = 0;
+    virtual QString name() = 0;
 
 private:
     virtual void initWindow() = 0;

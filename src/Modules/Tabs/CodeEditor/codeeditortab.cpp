@@ -1,5 +1,4 @@
 #include "codeeditortab.h"
-#include "ui/ToolsTabWidget/ToolTabFactory.h"
 #include "utils/utils.h"
 #include "libs/CodeEditor/include/widgets/CustomCodeEditor.h"
 
@@ -17,8 +16,8 @@
 static const bool registeredCodeEditorTab =
     registerAlwaysToolTab<CodeEditorTab>(QStringLiteral("code"), QStringLiteral("Code"), 100);
 
-CodeEditorTab::CodeEditorTab(FileDataBuffer* buffer, QWidget* parent)
-    : ToolTab(buffer, parent)
+CodeEditorTab::CodeEditorTab(QWidget* parent)
+    : TabBase(parent)
 {
     auto* rootLayout = new QVBoxLayout(this);
     rootLayout->setContentsMargins(0, 0, 0, 0);

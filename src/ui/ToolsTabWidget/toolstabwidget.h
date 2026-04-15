@@ -14,21 +14,21 @@ class QCompleter;
 class QStyleSyntaxHighlighter;
 class QCodeEditor;
 class FileDataBuffer;
-class ToolTab;
+class TabBase;
 
 class ToolsTabWidget : public QTabWidget
 {
     Q_OBJECT
 public:
     ToolsTabWidget(QWidget *parent, QString path);
-    ToolTab* openToolTab(const QString& toolId, bool activate = true);
+    TabBase* openToolTab(const QString& toolId, bool activate = true);
     int saveToFileCurrentTab(QString path);
     void setDataInTabs(QByteArray &data, int index = -1, int excluded_index = -1);
 
 private:
     void loadStyle(QString path, QString name);
-    ToolTab* findToolTab(const QString& toolId) const;
-    ToolTab* createToolTab(const QString& toolId);
+    TabBase* findToolTab(const QString& toolId) const;
+    void createAlwaysTabs();
     void updateCloseButtons();
     FileDataBuffer* m_sharedBuffer = nullptr;
     QString m_filePath;

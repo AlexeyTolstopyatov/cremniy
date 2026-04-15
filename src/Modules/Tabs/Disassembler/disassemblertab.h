@@ -1,7 +1,7 @@
 #ifndef DISASSEMBLERTAB_H
 #define DISASSEMBLERTAB_H
 
-#include "ui/ToolsTabWidget/ToolTab.h"
+#include "core/modules/TabBase.h"
 #include "disassemblerworker.h"
 #include <QIcon>
 #include <QWidget>
@@ -24,12 +24,12 @@ class DisasmTextHighlighter;
 class QListWidget;
 
 
-class DisassemblerTab : public ToolTab
+class DisassemblerTab : public TabBase
 {
     Q_OBJECT
 
 public:
-    explicit DisassemblerTab(FileDataBuffer* buffer, QWidget *parent = nullptr);
+    explicit DisassemblerTab(QWidget *parent = nullptr);
     ~DisassemblerTab();
 
     QString toolName() const override { return "Disassembler"; };

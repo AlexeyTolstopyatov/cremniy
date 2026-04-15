@@ -1,9 +1,8 @@
 #ifndef CODEEDITORTAB_H
 #define CODEEDITORTAB_H
 
-#include "ui/ToolsTabWidget/ToolTab.h"
 #include "libs/CodeEditor/include/widgets/CustomCodeEditor.h"
-#include "ui/ToolsTabWidget/ToolTab.h"
+#include "core/modules/TabBase.h"
 #include <QCheckBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -11,7 +10,7 @@
 #include <QShortcut>
 #include <QWidget>
 
-class CodeEditorTab : public ToolTab
+class CodeEditorTab : public TabBase
 {
     Q_OBJECT
 
@@ -65,7 +64,7 @@ private:
     void closeSearchBar();
 
 public:
-    explicit CodeEditorTab(FileDataBuffer* buffer, QWidget *parent = nullptr);
+    explicit CodeEditorTab(QWidget *parent = nullptr);
 
     QString toolName() const override { return "Code"; };
     QIcon toolIcon() const override { return QIcon(":/icons/code.png"); };

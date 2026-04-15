@@ -1,14 +1,15 @@
 #ifndef BINARYTAB_H
 #define BINARYTAB_H
 
-#include "ui/ToolsTabWidget/ToolTab.h"
 #include <QShortcut>
 #include <QWidget>
 #include <QIcon>
 #include <qfileinfo.h>
 #include <qstackedwidget.h>
 
-class BinaryTab : public ToolTab
+#include <core/modules/TabBase.h>
+
+class BinaryTab : public TabBase
 {
     Q_OBJECT
 
@@ -28,7 +29,7 @@ protected slots:
     void onDataChanged() override;
 
 public:
-    explicit BinaryTab(FileDataBuffer* buffer, QWidget *parent = nullptr);
+    explicit BinaryTab(QWidget *parent = nullptr);
 
     QString toolName() const override { return "Binary"; };
     QIcon toolIcon() const override { return QIcon(":/icons/binary.png"); };

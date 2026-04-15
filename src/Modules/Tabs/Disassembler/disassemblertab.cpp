@@ -32,7 +32,6 @@
 #include "core/settings/appsettings.h"
 #include "instructionhelpservice.h"
 #include "disasm/disasmtexthighlighter.h"
-#include "ui/ToolsTabWidget/ToolTabFactory.h"
 
 static const bool registeredDisassemblerTab =
     registerOtherToolTab<DisassemblerTab>(QStringLiteral("disassembler"), QStringLiteral("Disassembler"));
@@ -225,8 +224,8 @@ QString DisassemblerTab::formatLine(const LineInfo &li) const
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-DisassemblerTab::DisassemblerTab(FileDataBuffer* buffer, QWidget *parent)
-    : ToolTab{buffer, parent}
+DisassemblerTab::DisassemblerTab(QWidget *parent)
+    : TabBase{parent}
 {
     setupUi();
 
@@ -829,7 +828,7 @@ bool DisassemblerTab::eventFilter(QObject *watched, QEvent *event)
             return true;
         }
     }
-    return ToolTab::eventFilter(watched, event);
+    return TabBase::eventFilter(watched, event);
 }
 
 void DisassemblerTab::showInstructionHelpAt(const QPoint &pos, bool forceByCursor)
@@ -1279,5 +1278,3 @@ void DisassemblerTab::applyFilter()
     
     m_statusLabel->setText(tr("%1 lines shown").arg(shownLines));
 }
-
-#include "moc_disassemblertab.cpp"

@@ -7,10 +7,12 @@
 #include <QTableWidget>
 #include "formatpagefactory.h"
 #include "formatpage.h"
-#include "ui/ToolsTabWidget/ToolTabFactory.h"
+#include "core/modules/ModuleManager.h"
 
-static const bool registeredBinaryTab =
-    registerAlwaysToolTab<BinaryTab>(QStringLiteral("binary"), QStringLiteral("Binary"), 200);
+static bool registered = []() {
+    ModuleManager::instance().registerTab("1", []() { return new BinaryTab(); });
+    return true;
+}();
 
 namespace {
 void syncCurrentFormatPage(QStackedWidget* pageView, FileDataBuffer* dataBuffer)
@@ -26,8 +28,8 @@ void syncCurrentFormatPage(QStackedWidget* pageView, FileDataBuffer* dataBuffer)
 }
 }
 
-BinaryTab::BinaryTab(FileDataBuffer* buffer, QWidget *parent)
-    : ToolTab{buffer, parent}
+BinaryTab::BinaryTab(QWidget *parent)
+    : TabBase{parent}
 {
     // - - Tab Widgets - -
 
@@ -60,7 +62,7 @@ BinaryTab::BinaryTab(FileDataBuffer* buffer, QWidget *parent)
             pageList->addItem(fpage->pageName());
 
             connect(fpage, &FormatPage::modifyData, this, &BinaryTab::pageModifyDataSlot);
-            connect(fpage, &FormatPage::dataEqual, this, &ToolTab::dataEqual);
+            connect(fpage, &FormatPage::dataEqual, this, &TabBase::dataEqual);
             connect(fpage, &FormatPage::pageDataChanged,
                     this, [this](const QByteArray& data) {
                         if (m_syncingBufferData)

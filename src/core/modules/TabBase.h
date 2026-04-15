@@ -1,11 +1,11 @@
-#ifndef TOOLTAB_H
-#define TOOLTAB_H
+#ifndef TABBASE_H
+#define TABBASE_H
 
 #include "core/file/FileDataBuffer.h"
 #include "core/file/filecontext.h"
 #include <QWidget>
 
-class ToolTab : public QWidget {
+class TabBase : public QWidget {
     Q_OBJECT
 
 protected:
@@ -35,18 +35,18 @@ public:
      * @param buffer указатель на общий буфер данных
      * @param parent родительский виджет
      */
-    explicit ToolTab(FileDataBuffer* buffer, QWidget* parent = nullptr)
-        : QWidget(parent), m_dataBuffer(buffer)
+    explicit TabBase(QWidget* parent = nullptr)
+        : QWidget(parent)
     {
         // Подписываемся на сигналы буфера
         connect(m_dataBuffer, &FileDataBuffer::byteChanged,
-            this, &ToolTab::onByteChanged);
+            this, &TabBase::onByteChanged);
         connect(m_dataBuffer, &FileDataBuffer::bytesChanged,
-            this, &ToolTab::onBytesChanged);
+            this, &TabBase::onBytesChanged);
         connect(m_dataBuffer, &FileDataBuffer::selectionChanged,
-            this, &ToolTab::onSelectionChanged);
+            this, &TabBase::onSelectionChanged);
         connect(m_dataBuffer, &FileDataBuffer::dataChanged,
-            this, &ToolTab::onDataChanged);
+            this, &TabBase::onDataChanged);
     }
 
     /**
@@ -71,6 +71,15 @@ public:
      */
     void setModifyIndicator(bool value) {
         m_modifyIndicator = value;
+    }
+
+    /**
+     * @brief Установить общий буффер данных
+     *
+     * @param newFileDataBuffer указатель на общий буффер
+     */
+    void setFileDataBuffer(FileDataBuffer* newFileDataBuffer){
+        m_dataBuffer = newFileDataBuffer;
     }
 
 protected slots:
@@ -172,4 +181,4 @@ signals:
     void dataEqual();
 };
 
-#endif // TOOLTAB_H
+#endif // TABBASE_H

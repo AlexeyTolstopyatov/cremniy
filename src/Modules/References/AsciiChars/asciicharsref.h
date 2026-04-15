@@ -1,15 +1,15 @@
 #ifndef ASCIICHARSREF_H
 #define ASCIICHARSREF_H
 
-#include "ui/MenuBar/Menus/References/referencewindow.h"
+#include "core/modules/ReferenceBase.h"
 #include <QWidget>
 
-class AsciiCharsRef : public ReferenceWindow
+class AsciiCharsRef : public ReferenceBase
 {
     Q_OBJECT
 public:
     explicit AsciiCharsRef();
-    QString RefWinName() override { return "ASCII / Unicode Characters"; }
+    QString name() override { return "ASCII / Unicode Characters"; }
 
 private:
     void initWindow() override;

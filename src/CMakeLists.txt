@@ -53,28 +53,35 @@ qt_add_executable(${PROJECT_NAME}
     core/file/FileDataBuffer.h
     core/file/filemanager.cpp
     core/file/filemanager.h
+
     core/project/projectshistorymanager.cpp
     core/project/projectshistorymanager.h
+
     core/settings/appsettings.cpp
     core/settings/appsettings.h
+
     core/icons/iconprovider.cpp
     core/icons/iconprovider.h
+
     core/settings/exclusionfilterproxymodel.cpp
     core/settings/exclusionfilterproxymodel.h
+
+    core/modules/ModuleManager.h
+    core/modules/ModuleManager.cpp
+    core/modules/TabBase.h
+    core/modules/WindowBase.h
+    core/modules/ReferenceBase.h
 
     # UI
     ui/FilesTabWidget/filestabwidget.cpp
     ui/FilesTabWidget/filestabwidget.h
     ui/ToolsTabWidget/toolstabwidget.cpp
     ui/ToolsTabWidget/toolstabwidget.h
-    ui/ToolsTabWidget/ToolTab.h
-    ui/ToolsTabWidget/ToolTabFactory.cpp
-    ui/ToolsTabWidget/ToolTabFactory.h
 
     # UI Menubar
     ui/MenuBar/menubarbuilder.h ui/MenuBar/menubarbuilder.cpp
     ui/MenuBar/menufactory.h ui/MenuBar/menufactory.cpp
-    ui/MenuBar/basemenu.h
+    ui/MenuBar/basemenu.h    
 
 )
 
@@ -108,10 +115,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE CodeEditor)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libs/HexEditor/ ${CMAKE_BINARY_DIR}/libs/HexEditor/)
 target_link_libraries(${PROJECT_NAME} PRIVATE HexEditor)
 
-# - - Tools - -
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Tools/References/)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Tools/Tabs/)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Tools/Windows/)
+# - - Modules - -
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Modules/References/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Modules/Tabs/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Modules/Windows/)
 
 # - - Menus - -
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ui/MenuBar/Menus/)
