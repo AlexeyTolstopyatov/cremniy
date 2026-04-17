@@ -25,7 +25,6 @@
 
 ### ✨ Улучшения и новые задачи
 
-- [ ] 🟡 [Улучшить дизайн формы поиска строки в редакторе](https://github.com/munirov/cremniy/issues/177)
 - [ ] 🟡 [Отображение чисел в разных системах счисления при наведении](https://github.com/Cremniy-Project/cremniy/issues/28)
 - [ ] 🟡 [Улучшить терминал](https://github.com/munirov/cremniy/issues/100)
 - [ ] 🟢 [Добавить многоязычность](https://github.com/Cremniy-Project/cremniy/issues/67)
@@ -33,6 +32,7 @@
 - [ ] 🟢 [Работа с Git](https://github.com/Cremniy-Project/cremniy/issues/42)
 - [x] 🔴 [Реализация кастомного QPlainText для Code Editor](https://github.com/Cremniy-Project/cremniy/issues/56)
 - [x] 🔴 [Оптимизировать хранение данных у QHexView](https://github.com/Cremniy-Project/cremniy/issues/57)
+- [x] 🟡 [Улучшить дизайн формы поиска строки в редакторе](https://github.com/munirov/cremniy/issues/177)
 - [x] 🟡 [Улучшение дизайна Disassembler](https://github.com/Cremniy-Project/cremniy/issues/55)
 - [x] 🟡 [Справочник по скан-кодам клавиш](https://github.com/munirov/cremniy/issues/89)
 - [x] 🟡 [Добавить конвертер единиц хранения данных](https://github.com/munirov/cremniy/issues/104)
